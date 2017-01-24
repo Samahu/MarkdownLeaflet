@@ -1,0 +1,28 @@
+---
+title: "Markdown with Leaflet"
+author: "Ussama Naal"
+date: "January 23, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Date when this document was created `r Sys.Date()`  
+
+Displaying a map that shows the three highest populated US States  
+```{r map, echo=FALSE, fig.align='center', comment="", message=FALSE}
+library(leaflet)
+
+majorStates <- data.frame(name = c("New York", "Texas", "California"),
+                          population = c(38332521, 26448193, 19651127),
+                          lat = c(43, 31, 36),
+                          lng = c(-74, -99, -119))
+
+majorStates %>%
+  leaflet() %>%
+  addTiles() %>%
+  addCircles(weight = 1, radius = sqrt(majorStates$population) * 100)
+
+```
